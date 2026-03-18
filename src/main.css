@@ -261,3 +261,37 @@ hr { border-top: 1px dashed rgba(16,185,129,0.3); }
 .question:hover, .expandable:hover { color: #10b981; }
 .seedpoint { background-color: #10b981; }
 #testnet { background-color: #f59e0b; color: #000; }
+
+/* Secret key protection */
+.parsec-secret-mask {
+	color: #555;
+	font-style: italic;
+	font-size: 0.85em;
+	cursor: pointer;
+	user-select: none;
+	letter-spacing: 0.05em;
+}
+.parsec-secret-cleared {
+	color: #ef4444;
+	font-style: italic;
+	font-size: 0.8em;
+}
+#btcprivwif {
+	cursor: pointer;
+}
+#qrcode_private {
+	cursor: pointer;
+}
+
+/* Public key — easy to share */
+#btcaddress {
+	background: rgba(16,185,129,0.08);
+	border: 1px solid rgba(16,185,129,0.25);
+	border-radius: 8px;
+	padding: 8px 12px;
+	word-break: break-all;
+	transition: background 0.2s;
+}
+#btcaddress:hover {
+	background: rgba(16,185,129,0.15);
+}
