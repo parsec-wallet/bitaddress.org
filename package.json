@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
+    "grunt-cli": "^1.5.0",
     "grunt-combine": "~0.8.3",
     "grunt-lineending": "~0.2.4"
   },
@@ -21,7 +22,13 @@
     "url": "git://github.com/parsec-wallet/bitaddress.org.git"
   },
   "keywords": [
-    "parsec", "bitcoin", "wallet", "generator", "offline", "paper", "cypherpunk2048"
+    "parsec",
+    "bitcoin",
+    "wallet",
+    "generator",
+    "offline",
+    "paper",
+    "cypherpunk2048"
   ],
   "author": "cypherpunk2048 (forked from pointbiz/bitaddress.org)",
   "license": "SEE LICENSE IN LICENSE"
