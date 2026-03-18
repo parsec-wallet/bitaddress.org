@@ -587,3 +587,78 @@ input[type=button] {
 	#keyarea .public, #keyarea .private { width: 100% !important; display: block !important; margin-bottom: 20px; }
 	.parsec-transfer-btn { font-size: 14px !important; }
 }
+
+/* Hard separation between public and private */
+#keyarea {
+	display: flex !important;
+	gap: 0 !important;
+}
+#keyarea .public {
+	background: rgba(16,185,129,0.04);
+	border: 1px solid rgba(16,185,129,0.15);
+	border-radius: 12px;
+	padding: 20px !important;
+	margin-right: 12px;
+}
+#keyarea .private {
+	background: rgba(239,68,68,0.03);
+	border: 1px solid rgba(239,68,68,0.12);
+	border-radius: 12px;
+	padding: 20px !important;
+	margin-left: 12px;
+}
+
+/* Public side — green tones */
+#keyarea .public .label {
+	color: #10b981 !important;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+}
+
+/* Private side — red tones */
+#keyarea .private .label {
+	color: #ef4444 !important;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+}
+
+/* Center divider — visual wall between public and private */
+#keyarea::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 15%;
+	bottom: 15%;
+	width: 1px;
+	background: linear-gradient(180deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+/* SHARE badge — green */
+.parsec-key-badge--public {
+	background: rgba(16,185,129,0.12) !important;
+	color: #10b981 !important;
+	border-color: rgba(16,185,129,0.25) !important;
+}
+
+/* SECRET badge — red */
+.parsec-key-badge--private {
+	background: rgba(239,68,68,0.08) !important;
+	color: #ef4444 !important;
+	border-color: rgba(239,68,68,0.2) !important;
+}
+
+/* QR code containment */
+#keyarea .qrcode_public {
+	border: 2px solid rgba(16,185,129,0.12);
+	border-radius: 10px;
+	padding: 8px !important;
+	display: inline-block;
+}
+#keyarea .qrcode_private {
+	border: 2px solid rgba(239,68,68,0.1);
+	border-radius: 10px;
+	padding: 8px !important;
+	display: inline-block;
+}
