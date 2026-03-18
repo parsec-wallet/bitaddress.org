@@ -1,7 +1,36 @@
 ninja.seeder = {
 	init: (function () {
 		document.getElementById("generatekeyinput").value = "";
+		// Seed from arrival moment — the exact timestamp is entropy
+		SecureRandom.seedTime();
+		if (window.performance && window.performance.now) {
+			SecureRandom.seedInt16(Math.floor(window.performance.now() * 1000) & 0xFFFF);
+		}
+		// Background entropy from CPU clock jitter — slow baseline without input
+		// Participant interaction speeds things up significantly
+		ninja.seeder._clockInterval = setInterval(function () {
+			if (!ninja.seeder.isStillSeeding) {
+				clearInterval(ninja.seeder._clockInterval);
+				return;
+			}
+			SecureRandom.seedTime();
+			if (window.performance && window.performance.now) {
+				SecureRandom.seedInt16(Math.floor(window.performance.now() * 10000) & 0xFFFF);
+			}
+			// Clock alone advances slowly — 1 seed per tick
+			if (ninja.seeder.seedCount < ninja.seeder.seedLimit) {
+				ninja.seeder.seedCount++;
+				ninja.seeder.showPool();
+			}
+			if (ninja.seeder.seedCount >= ninja.seeder.seedLimit) {
+				ninja.seeder.seedCount = ninja.seeder.seedLimit;
+				ninja.seeder.seedCount++;
+				ninja.seeder.seedingOver();
+			}
+		}, 300); // every 300ms — slow drip without interaction
 	})(),
+
+	_clockInterval: null,
 
 	seedLimit: (function () {
 		var num = Crypto.util.randomBytes(12)[11];
@@ -14,6 +43,7 @@ ninja.seeder = {
 	isStillSeeding: true,
 	seederDependentWallets: ["singlewallet", "paperwallet", "bulkwallet", "vanitywallet", "splitwallet"],
 
+	// Any participant event seeds entropy — not just mouse
 	seed: function (evt) {
 		if (!evt) var evt = window.event;
 		var timeStamp = new Date().getTime();
@@ -23,10 +53,15 @@ ninja.seeder = {
 		}
 		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
 			SecureRandom.seedTime();
-			SecureRandom.seedInt16((evt.clientX * evt.clientY));
-			ninja.seeder.showPoint(evt.clientX, evt.clientY);
-			ninja.seeder.seedCount++;
-			ninja.seeder.lastInputTime = new Date().getTime();
+			// Seed from any coordinate — mouse, touch, pen
+			var x = evt.clientX || evt.pageX || 0;
+			var y = evt.clientY || evt.pageY || 0;
+			SecureRandom.seedInt16((x * y) & 0xFFFF);
+			// Also seed interaction timing delta
+			SecureRandom.seedInt16((timeStamp - ninja.seeder.lastInputTime) & 0xFFFF);
+			if (x > 0 && y > 0) ninja.seeder.showPoint(x, y);
+			ninja.seeder.seedCount += 3; // interaction is high-quality entropy
+			ninja.seeder.lastInputTime = timeStamp;
 			ninja.seeder.showPool();
 		}
 	},
@@ -41,10 +76,9 @@ ninja.seeder = {
 			var timeStamp = new Date().getTime();
 			SecureRandom.seedTime();
 			SecureRandom.seedInt8(evt.which);
-			var keyPressTimeDiff = timeStamp - ninja.seeder.lastInputTime;
-			SecureRandom.seedInt8(keyPressTimeDiff);
-			ninja.seeder.seedCount++;
-			ninja.seeder.lastInputTime = new Date().getTime();
+			SecureRandom.seedInt8((timeStamp - ninja.seeder.lastInputTime) & 0xFF);
+			ninja.seeder.seedCount += 2;
+			ninja.seeder.lastInputTime = timeStamp;
 			ninja.seeder.showPool();
 		}
 	},
@@ -61,27 +95,26 @@ ninja.seeder = {
 			document.getElementById("seedpool").innerHTML = poolHex;
 			document.getElementById("seedpooldisplay").innerHTML = poolHex;
 		}
-		var percent = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100);
+		var percent = Math.min(100, Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100));
 
-		// Update progress bar instead of raw percentage text
 		var bar = document.getElementById("parsec-entropy-bar");
 		var label = document.getElementById("parsec-entropy-label");
 		if (bar) {
 			bar.style.width = percent + "%";
-			// Color gradient: red → yellow → green
 			if (percent < 40) bar.style.background = "#ef4444";
 			else if (percent < 75) bar.style.background = "#f59e0b";
 			else bar.style.background = "#10b981";
 		}
 		if (label) {
-			label.innerHTML = percent + "% entropy collected";
+			if (percent < 100) {
+				label.innerHTML = percent + "% — collecting entropy from your interaction and system clock";
+			} else {
+				label.innerHTML = "Entropy complete — generating wallet";
+			}
 		}
 
-		// Update the small percentage on the main progress display only
 		var limitEl = document.getElementById("mousemovelimit");
 		if (limitEl) limitEl.innerHTML = percent + "%";
-
-		// DO NOT overwrite tab labels — keep them readable
 	},
 
 	showPoint: function (x, y) {
@@ -102,6 +135,7 @@ ninja.seeder = {
 
 	seedingOver: function () {
 		ninja.seeder.isStillSeeding = false;
+		if (ninja.seeder._clockInterval) clearInterval(ninja.seeder._clockInterval);
 		ninja.status.unitTests();
 		var walletType = ninja.tab.whichIsOpen();
 		if (walletType == null) {

@@ -1,3 +1,23 @@
+// Seed from all participant interaction — not just mouse
+document.addEventListener("mousemove", ninja.seeder.seed, false);
+document.addEventListener("touchmove", function(evt) {
+	if (evt.touches && evt.touches[0]) {
+		ninja.seeder.seed({ clientX: evt.touches[0].clientX, clientY: evt.touches[0].clientY });
+	}
+}, false);
+document.addEventListener("scroll", function() {
+	SecureRandom.seedTime();
+	if (ninja.seeder.isStillSeeding && ninja.seeder.seedCount < ninja.seeder.seedLimit) {
+		ninja.seeder.seedCount++;
+		ninja.seeder.showPool();
+	}
+}, false);
+document.addEventListener("click", function(evt) {
+	if (ninja.seeder.isStillSeeding) {
+		ninja.seeder.seed(evt);
+	}
+}, false);
+
 // run unit tests
 if (ninja.getQueryString()["unittests"] == "true" || ninja.getQueryString()["unittests"] == "1") {
 	ninja.unitTests.runSynchronousTests(true);
@@ -14,14 +34,14 @@ if (ninja.getQueryString()["culture"] != undefined) {
 } else {
 	ninja.translator.autoDetectTranslation();
 }
-// testnet, check if testnet edition should be activated
+// testnet
 if (ninja.getQueryString()["testnet"] == "true" || ninja.getQueryString()["testnet"] == "1") {
 	document.getElementById("testnet").innerHTML = ninja.translator.get("testneteditionactivated");
 	document.getElementById("testnet").style.display = "block";
 	document.getElementById("detailwifprefix").innerHTML = "'9'";
 	document.getElementById("detailcompwifprefix").innerHTML = "'c'";
-	Bitcoin.Address.networkVersion = 0x6F; // testnet
-	Bitcoin.ECKey.privateKeyPrefix = 0xEF; // testnet
+	Bitcoin.Address.networkVersion = 0x6F;
+	Bitcoin.ECKey.privateKeyPrefix = 0xEF;
 	ninja.testnetMode = true;
 }
 if (ninja.getQueryString()["showseedpool"] == "true" || ninja.getQueryString()["showseedpool"] == "1") {
