@@ -74,19 +74,58 @@
 					privQr.onmouseleave = function () { privQr.style.filter = "blur(12px)"; };
 				}
 
-				// Clear the ECKey from memory — zero the private key bytes
+				// Transfer to Parsec Pouch button
+				var transferArea = document.getElementById("singlesafety");
+				if (transferArea) {
+					var transferBtn = document.createElement("div");
+					transferBtn.className = "parsec-transfer-btn";
+					transferBtn.innerHTML = '<span class="parsec-transfer-icon">&#x1F512;</span> Transfer to Parsec Pouch';
+					transferBtn.title = "Copies your private key securely for import into Parsec Wallet";
+					transferBtn.onclick = function () {
+						if (!single._keyCache) {
+							transferBtn.innerHTML = '<span style="color:#ef4444;">Key expired — generate a new wallet</span>';
+							return;
+						}
+						if (navigator.clipboard) {
+							navigator.clipboard.writeText(single._keyCache);
+							transferBtn.innerHTML = '<span style="color:#10b981;">&#10004; Copied to clipboard — paste into Parsec Wallet Import</span>';
+							transferBtn.className = "parsec-transfer-btn parsec-transfer-btn--done";
+							// Clear from memory immediately after transfer
+							single._keyCache = '\0'.repeat(single._keyCache.length);
+							single._keyCache = null;
+							// Update private display
+							privEl.innerHTML = '<span class="parsec-secret-cleared">key transferred to clipboard — cleared from memory</span>';
+							privEl.onmouseenter = null;
+							privEl.onmouseleave = null;
+							if (privQr) {
+								privQr.innerHTML = '<div style="text-align:center;padding:20px;color:#555;font-size:0.85em;">QR cleared</div>';
+								privQr.onmouseenter = null;
+								privQr.onmouseleave = null;
+							}
+							setTimeout(function () {
+								transferBtn.innerHTML = '<span class="parsec-transfer-icon">&#x1F512;</span> Generate a new wallet to transfer again';
+								transferBtn.className = "parsec-transfer-btn";
+							}, 5000);
+						}
+					};
+					transferArea.insertBefore(transferBtn, transferArea.firstChild);
+				}
+
+				// Clear the ECKey from memory
 				if (key.priv) {
 					key.priv = null;
 				}
 
-				// Auto-clear the WIF cache after 60 seconds
+				// Auto-clear the WIF cache after 90 seconds if not transferred
 				setTimeout(function () {
 					if (single._keyCache) {
-						// Overwrite with zeros before nullifying
 						single._keyCache = '\0'.repeat(single._keyCache.length);
 						single._keyCache = null;
+						// Update UI
+						var lbl = document.getElementById("parsec-entropy-label");
+						if (lbl) lbl.innerHTML = "Key cleared from memory — generate new wallet if needed";
 					}
-				}, 60000);
+				}, 90000);
 
 			} catch (e) {
 				alert(e);
