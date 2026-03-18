@@ -109,25 +109,25 @@
 //main.css
 	</style>
 </head>
-<body onclick="SecureRandom.seedTime();" onmousemove="ninja.seeder.seed(event);">
+<body onclick="SecureRandom.seedTime();" onmousemove="parsec.seeder.seed(event);">
 	<div id="busyblock"></div>
 	<div id="main">
 		<div id="culturemenu">
             <div class="culturemenurow">
-                <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
-                <span><a href="?culture=es" id="culturees" onclick="ninja.translator.translate('es'); return false;">Español</a></span> |
-                <span><a href="?culture=fr" id="culturefr" onclick="ninja.translator.translate('fr'); return false;">Français</a></span> |
-                <span><a href="?culture=el" id="cultureel" onclick="ninja.translator.translate('el'); return false;">ελληνικά</a></span> |
-                <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;">italiano</a></span> |
-                <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;">Deutsch</a></span>
+                <span><a href="?culture=en" id="cultureen" class="selected" onclick="parsec.translator.translate('en'); return false;">English</a></span> |
+                <span><a href="?culture=es" id="culturees" onclick="parsec.translator.translate('es'); return false;">Español</a></span> |
+                <span><a href="?culture=fr" id="culturefr" onclick="parsec.translator.translate('fr'); return false;">Français</a></span> |
+                <span><a href="?culture=el" id="cultureel" onclick="parsec.translator.translate('el'); return false;">ελληνικά</a></span> |
+                <span><a href="?culture=it" id="cultureit" onclick="parsec.translator.translate('it'); return false;">italiano</a></span> |
+                <span><a href="?culture=de" id="culturede" onclick="parsec.translator.translate('de'); return false;">Deutsch</a></span>
             </div>
             <div class="culturemenurow">
-                <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;">Česky</a></span> |
-                <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;">Magyar</a></span> |
-                <span><a href="?culture=jp" id="culturejp" onclick="ninja.translator.translate('jp'); return false;">日本語</a></span> |
-                <span><a href="?culture=zh-cn" id="culturezh-cn" onclick="ninja.translator.translate('zh-cn'); return false;">简体中文</a></span> |
-                <span><a href="?culture=ru" id="cultureru" onclick="ninja.translator.translate('ru'); return false;">Русский</a></span> |
-                <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;">português</a></span>
+                <span><a href="?culture=cs" id="culturecs" onclick="parsec.translator.translate('cs'); return false;">Česky</a></span> |
+                <span><a href="?culture=hu" id="culturehu" onclick="parsec.translator.translate('hu'); return false;">Magyar</a></span> |
+                <span><a href="?culture=jp" id="culturejp" onclick="parsec.translator.translate('jp'); return false;">日本語</a></span> |
+                <span><a href="?culture=zh-cn" id="culturezh-cn" onclick="parsec.translator.translate('zh-cn'); return false;">简体中文</a></span> |
+                <span><a href="?culture=ru" id="cultureru" onclick="parsec.translator.translate('ru'); return false;">Русский</a></span> |
+                <span><a href="?culture=pt-br" id="culturept-br" onclick="parsec.translator.translate('pt-br'); return false;">português</a></span>
             </div>
 		</div>
 		<div id="logo" style="font-size:42px;font-weight:800;letter-spacing:0.15em;padding:20px 0;background:linear-gradient(135deg,#10b981,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;">PARSEC</div>
@@ -135,19 +135,19 @@
 		<div id="seedpoolarea"><textarea rows="16" cols="62" id="seedpool"></textarea></div>
 		<div id="testnet"></div>
 		<ul class="menu" id="menu">
-			<li class="tab" id="singlewallet" onclick="ninja.tab.select(this);">Single Wallet
-			<li class="tab" id="paperwallet" onclick="ninja.tab.select(this);">Paper Wallet
-			<li class="tab" id="bulkwallet" onclick="ninja.tab.select(this);">Bulk Wallet
-			<li class="tab" id="brainwallet" onclick="ninja.tab.select(this);">Brain Wallet
-			<li class="tab" id="vanitywallet" onclick="ninja.tab.select(this);">Vanity Wallet
-			<li class="tab" id="splitwallet" onclick="ninja.tab.select(this);">Split Wallet
-			<li class="tab" id="detailwallet" onclick="ninja.tab.select(this);">Wallet Details
+			<li class="tab" id="singlewallet" onclick="parsec.tab.select(this);">Single Wallet
+			<li class="tab" id="paperwallet" onclick="parsec.tab.select(this);">Paper Wallet
+			<li class="tab" id="bulkwallet" onclick="parsec.tab.select(this);">Bulk Wallet
+			<li class="tab" id="brainwallet" onclick="parsec.tab.select(this);">Brain Wallet
+			<li class="tab" id="vanitywallet" onclick="parsec.tab.select(this);">Vanity Wallet
+			<li class="tab" id="splitwallet" onclick="parsec.tab.select(this);">Split Wallet
+			<li class="tab" id="detailwallet" onclick="parsec.tab.select(this);">Wallet Details
 		</ul>
 		
 		<div id="generate">
 			<span id="generatelabelbitcoinaddress" style="font-size:1.4em;font-weight:600;color:#10b981;">Generating Entropy...</span><br /><div style="margin:16px 0;"><div style="background:rgba(16,185,129,0.15);border-radius:12px;height:18px;overflow:hidden;border:1px solid rgba(16,185,129,0.3);"><div id="parsec-entropy-bar" style="height:100%;width:0%;border-radius:12px;transition:width 0.15s ease,background 0.3s ease;background:#ef4444;"></div></div><div id="parsec-entropy-label" style="text-align:center;font-size:0.85em;color:#888;margin-top:6px;">0% entropy collected</div></div>
 			<span id="generatelabelmovemouse">Interact to generate entropy — </span><span id="mousemovelimit"></span><br />
-			<span id="generatelabelkeypress">or type random characters</span> <input type="text" id="generatekeyinput" onkeydown="ninja.seeder.seedKeyPress(event);" /><br />
+			<span id="generatelabelkeypress">or type random characters</span> <input type="text" id="generatekeyinput" onkeydown="parsec.seeder.seedKeyPress(event);" /><br />
 			<div id="seedpooldisplay"></div>
 		</div>
 
@@ -155,7 +155,7 @@
 			<div id="singlearea" class="walletarea">
 				<div class="commands">
 					<div id="singlecommands" class="row">
-						<span><input type="button" id="newaddress" value="Generate New Wallet" onclick="ninja.wallets.singlewallet.generateNewAddressAndKey();" /></span>
+						<span><input type="button" id="newaddress" value="Generate New Wallet" onclick="parsec.wallets.singlewallet.generateNewAddressAndKey();" /></span>
 						<span class="print"><input type="button" name="print" value="Print" id="singleprint" onclick="window.print();" /></span>
 					</div>
 				</div>
@@ -196,13 +196,13 @@
 			<div id="paperarea">
 				<div class="commands">
 					<div id="papercommands" class="row">
-						<span><label id="paperlabelhideart" for="paperart">Hide Art?</label> <input type="checkbox" id="paperart" onchange="ninja.wallets.paperwallet.toggleArt(this);" /></span>
+						<span><label id="paperlabelhideart" for="paperart">Hide Art?</label> <input type="checkbox" id="paperart" onchange="parsec.wallets.paperwallet.toggleArt(this);" /></span>
 						<span><label id="paperlabeladdressestogenerate" for="paperlimit">Addresses to generate:</label> <input type="text" id="paperlimit" /></span>
-						<span><input type="button" id="papergenerate" value="Generate" onclick="ninja.wallets.paperwallet.build(document.getElementById('paperlimit').value * 1, document.getElementById('paperlimitperpage').value * 1, !document.getElementById('paperart').checked, document.getElementById('paperpassphrase').value);" /></span>
+						<span><input type="button" id="papergenerate" value="Generate" onclick="parsec.wallets.paperwallet.build(document.getElementById('paperlimit').value * 1, document.getElementById('paperlimitperpage').value * 1, !document.getElementById('paperart').checked, document.getElementById('paperpassphrase').value);" /></span>
 						<span class="print"><input type="button" name="print" value="Print" id="paperprint" onclick="window.print();" /></span>
 					</div>
 					<div id="paperadvancedcommands" class="row extra">
-						<span><label id="paperlabelencrypt" for="paperencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="paperencrypt" onchange="ninja.wallets.paperwallet.toggleEncrypt(this);" /></span>
+						<span><label id="paperlabelencrypt" for="paperencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="paperencrypt" onchange="parsec.wallets.paperwallet.toggleEncrypt(this);" /></span>
 						<span><label id="paperlabelBIPpassphrase" for="paperpassphrase">Passphrase:</label> <input type="text" id="paperpassphrase" /></span>
 						<span><label id="paperlabeladdressesperpage" for="paperlimitperpage">Addresses per page:</label> <input type="text" id="paperlimitperpage" /></span>
 					</div>
@@ -216,11 +216,11 @@
 						<span><label id="bulklabelstartindex" for="bulkstartindex">Start index:</label> <input type="text" id="bulkstartindex" value="1" /></span>
 						<span><label id="bulklabelrowstogenerate" for="bulklimit">Rows to generate:</label> <input type="text" id="bulklimit" value="3" /></span>
 						<span><label id="bulklabelcompressed" for="bulkcompressed">Compressed addresses?</label> <input type="checkbox" id="bulkcompressed" checked="checked" /></span>
-						<span><input type="button" id="bulkgenerate" value="Generate" onclick="ninja.wallets.bulkwallet.buildCSV(document.getElementById('bulklimit').value * 1, document.getElementById('bulkstartindex').value * 1, document.getElementById('bulkcompressed').checked, document.getElementById('bulkpassphrase').value);" /> </span>
+						<span><input type="button" id="bulkgenerate" value="Generate" onclick="parsec.wallets.bulkwallet.buildCSV(document.getElementById('bulklimit').value * 1, document.getElementById('bulkstartindex').value * 1, document.getElementById('bulkcompressed').checked, document.getElementById('bulkpassphrase').value);" /> </span>
 						<span class="print"><input type="button" name="print" id="bulkprint" value="Print" onclick="window.print();" /></span>
 					</div>
 					<div id="bulkadvancedcommands" class="row extra">
-						<span><label id="bulklabelencrypt" for="bulkencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="bulkencrypt" onchange="ninja.wallets.bulkwallet.toggleEncrypt(this);" /></span>
+						<span><label id="bulklabelencrypt" for="bulkencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="bulkencrypt" onchange="parsec.wallets.bulkwallet.toggleEncrypt(this);" /></span>
 						<span><label id="bulklabelBIPpassphrase" for="bulkpassphrase">Passphrase:</label> <input type="text" id="bulkpassphrase" /></span>
 					</div>
 				</div>
@@ -230,14 +230,14 @@
 				</div>
 				<div class="faqs">
 					<div id="bulkfaq1" class="faq"> 
-						<div id="bulkq1" class="question" onclick="ninja.wallets.bulkwallet.openCloseFaq(1);">
+						<div id="bulkq1" class="question" onclick="parsec.wallets.bulkwallet.openCloseFaq(1);">
 							<span id="bulklabelq1">Why should I use a Bulk Wallet to accept bitcoins on my website?</span>
 							<div id="bulke1" class="more"></div>
 						</div>
 						<div id="bulka1" class="answer">The traditional approach to accepting bitcoins on your website requires that you install the official bitcoin client daemon ("bitcoind"). Many website hosting packages don't support installing the bitcoin daemon. Also, running the bitcoin daemon on your web server means your private keys are hosted on the server and could get stolen if your web server is hacked. When using a Bulk Wallet you can upload only the bitcoin addresses and not the private keys to your web server. Then you don't have to worry about your bitcoin wallet being stolen if your web server is hacked. </div>
 					</div>
 					<div id="bulkfaq2" class="faq"> 
-						<div id="bulkq2" class="question" onclick="ninja.wallets.bulkwallet.openCloseFaq(2);">
+						<div id="bulkq2" class="question" onclick="parsec.wallets.bulkwallet.openCloseFaq(2);">
 							<span id="bulklabelq2">How do I use a Bulk Wallet to accept bitcoins on my website?</span>
 							<div id="bulke2" class="more"></div>
 						</div>
@@ -258,19 +258,19 @@
 				<div id="braincommands" class="commands">
 					<div class="row">
 						<span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label></span>
-						<input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
-						<span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
+						<input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) parsec.wallets.brainwallet.view();" />
+						<span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="parsec.wallets.brainwallet.showToggle(this);" /></span>
 						<span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
 					</div>
 					<div class="row extra">
 						<span class="label" id="brainlabelconfirm"><label for="brainpassphraseconfirm">Confirm Passphrase: </label></span>
-						<input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
+						<input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) parsec.wallets.brainwallet.view();" />
 						
 						<span id="brainalgorithm" class="notes right">Algorithm: SHA256(passphrase)</span>
 					</div>
 					<div class ="row extra">
 						<span><label tabindex="3" id="brainlabelcompressed" for="braincompressed">Compressed address?</label> <input type="checkbox" id="braincompressed" /></span>
-						<span><input tabindex="4" type="button" id="brainview" value="View" onclick="ninja.wallets.brainwallet.view();" /></span>
+						<span><input tabindex="4" type="button" id="brainview" value="View" onclick="parsec.wallets.brainwallet.view();" /></span>
 					</div>
 					<div class="row extra"><span id="brainwarning"></span></div>
 				</div>
@@ -293,9 +293,9 @@
 			</div>
 			
 			<div id="vanityarea" class="walletarea">
-				<div id="vanitystep1label" class="commands expandable" onclick="ninja.wallets.vanitywallet.openCloseStep(1);">
+				<div id="vanitystep1label" class="commands expandable" onclick="parsec.wallets.vanitywallet.openCloseStep(1);">
 					<span><label id="vanitylabelstep1">Step 1 - Generate your "Step1 Key Pair"</label> <input type="button" id="vanitynewkeypair" 
-						value="Generate" onclick="ninja.wallets.vanitywallet.generateKeyPair();" /></span>
+						value="Generate" onclick="parsec.wallets.vanitywallet.generateKeyPair();" /></span>
 					<div id="vanitystep1icon" class="more"></div>
 				</div>
 				<div id="vanitystep1area">
@@ -310,7 +310,7 @@
 						<br /><div class="notes" id="vanitylabelstep1privnotes">Copy and paste the above Private Key field into a text file. Ideally save to an encrypted drive. You will need this to retrieve the Bitcoin Private Key once the Pool has found your prefix.</div>
 					</div>
 				</div>
-				<div id="vanitystep2label" class="expandable" onclick="ninja.wallets.vanitywallet.openCloseStep(2);">
+				<div id="vanitystep2label" class="expandable" onclick="parsec.wallets.vanitywallet.openCloseStep(2);">
 					<span id="vanitylabelstep2calculateyourvanitywallet">Step 2 - Calculate your Vanity Wallet</span>
 					<div id="vanitystep2icon" class="more"></div>
 				</div>
@@ -329,7 +329,7 @@
 						<label for="vanityradioadd" id="vanitylabelradioadd">Add</label> <input type="radio" id="vanityradioadd" name="vanityradio" value="add" checked />
 						<label for="vanityradiomultiply" id="vanitylabelradiomultiply">Multiply</label> <input type="radio" id="vanityradiomultiply" name="vanityradio" value="multiply" />
 					</div>
-					<div><input type="button" id="vanitycalc" value="Calculate Vanity Wallet" onclick="ninja.wallets.vanitywallet.addKeys();" /></div>
+					<div><input type="button" id="vanitycalc" value="Calculate Vanity Wallet" onclick="parsec.wallets.vanitywallet.addKeys();" /></div>
 				</div>
 				<div id="vanitystep2area">
 					<div>
@@ -359,8 +359,8 @@
 					<br/>
 					<label id="splitlabelshares">Number of shares</label>
 					<input type="text" id="splitshares" value="3" size="4"/>
-					<span><input type="button" id="splitview" value="Generate" onclick="ninja.wallets.splitwallet.splitKey();"></span>
-					<div id="splitstep1icon" class="more " onclick="ninja.wallets.splitwallet.openCloseStep(1);"></div>
+					<span><input type="button" id="splitview" value="Generate" onclick="parsec.wallets.splitwallet.splitKey();"></span>
+					<div id="splitstep1icon" class="more " onclick="parsec.wallets.splitwallet.openCloseStep(1);"></div>
 				</div>
 				<div id="splitstep1area"></div>
 
@@ -369,7 +369,7 @@
 						<label id="combinelabelentershares">Enter Available Shares (whitespace separated)</label><br/>
 						<textarea id="combineinput" cols="60" rows="10"></textarea><br/>
 					</span>
-					<span><input type="button" id="combineview" value="Combine Shares" onclick="ninja.wallets.splitwallet.combineShares();"></span>
+					<span><input type="button" id="combineview" value="Combine Shares" onclick="parsec.wallets.splitwallet.combineShares();"></span>
 				</div>
 				<div id="splitstep2area">
 					<div id="combineoutput">
@@ -382,16 +382,16 @@
 			<div id="detailarea" class="walletarea">	
 				<div id="detailcommands" class="commands">
 					<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
-					<input type="text" id="detailprivkey" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
-					<span><input type="button" class="button" id="detailview" value="View Details" onclick="ninja.wallets.detailwallet.viewDetails();" /></span>
+					<input type="text" id="detailprivkey" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) parsec.wallets.detailwallet.viewDetails();" />
+					<span><input type="button" class="button" id="detailview" value="View Details" onclick="parsec.wallets.detailwallet.viewDetails();" /></span>
 					
 					<div id="detailbip38toggle">
-						<span><label id="detaillabelencrypt" for="detailencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="detailbip38checkbox" onchange="ninja.wallets.detailwallet.toggleEncrypt(this);" /></span>
+						<span><label id="detaillabelencrypt" for="detailencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="detailbip38checkbox" onchange="parsec.wallets.detailwallet.toggleEncrypt(this);" /></span>
 					</div>
 					<div id="detailbip38commands">
-						<span><label id="detaillabelpassphrase">Enter BIP38 Passphrase</label> <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.enterOnPassphrase();" /></span>
-						<span id="detailbip38decryptspan"><input type="button" class="button" id="detailbip38decryptbutton" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.decryptBip38();" /></span>
-						<span id="detailbip38encryptspan"><input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="ninja.wallets.detailwallet.encryptBip38();" /></span>
+						<span><label id="detaillabelpassphrase">Enter BIP38 Passphrase</label> <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) parsec.wallets.detailwallet.enterOnPassphrase();" /></span>
+						<span id="detailbip38decryptspan"><input type="button" class="button" id="detailbip38decryptbutton" value="Decrypt BIP38" onclick="parsec.wallets.detailwallet.decryptBip38();" /></span>
+						<span id="detailbip38encryptspan"><input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="parsec.wallets.detailwallet.encryptBip38();" /></span>
 					</div>
 					<span class="print"><input type="button" class="button" name="print" id="detailprint" value="Print" onclick="window.print();" /></span>
 					<div class="row extra">
@@ -463,7 +463,7 @@
 				</div>
 				<div class="faqs">
 					<div id="detailfaq1" class="faq"> 
-						<div id="detailq1" class="question" onclick="ninja.wallets.detailwallet.openCloseFaq(1);">
+						<div id="detailq1" class="question" onclick="parsec.wallets.detailwallet.openCloseFaq(1);">
 							<span id="detaillabelq1">How do I make a wallet using dice? What is B6?</span>
 							<div id="detaile1" class="more"></div>
 						</div>
@@ -514,7 +514,7 @@
 					<textarea rows="20" cols="102" id="keypooltextarea"></textarea>
 					
 					<br /><br />
-					<input type="button" value="Refresh" class="button" id="statuskeypoolrefresh" onclick="ninja.status.showKeyPool();" />
+					<input type="button" value="Refresh" class="button" id="statuskeypoolrefresh" onclick="parsec.status.showKeyPool();" />
 					<input type="button" value="OK" class="button" id="statusokkeypool" onclick="document.getElementById('statuskeypoolgood').style.display = 'none';" />
 				</div>
 			</div>
@@ -522,10 +522,10 @@
 			<div class="authorbtc">
 				<div>
 					<span class="item">
-						<span class="statusicon" id="statusprotocol" onclick="ninja.status.showProtocol();">...</span>
-						<span class="statusicon" id="statuscrypto" onclick="ninja.status.showCrypto();">...</span>
-						<span class="statusicon" id="statusunittests" onclick="ninja.status.showUnitTests();">...</span>
-						<span class="statusicon" id="statuskeypool" onclick="ninja.status.showKeyPool();">&#8803;</span>
+						<span class="statusicon" id="statusprotocol" onclick="parsec.status.showProtocol();">...</span>
+						<span class="statusicon" id="statuscrypto" onclick="parsec.status.showCrypto();">...</span>
+						<span class="statusicon" id="statusunittests" onclick="parsec.status.showUnitTests();">...</span>
+						<span class="statusicon" id="statuskeypool" onclick="parsec.status.showKeyPool();">&#8803;</span>
 					</span>
 					<span class="item">Parsec Paper Export — (c) BANKON. All rights reserved.</span>
 					<span class="item" id="footerlabeltranslatedby"></span>
@@ -553,19 +553,19 @@
 	</div>
 
 	<script type="text/javascript">
-//ninja.key.js
+//parsec.key.js
 	</script>
 	<script type="text/javascript">
-//ninja.seeder.js
+//parsec.seeder.js
 	</script>
 	<script type="text/javascript">
- //ninja.qrcode.js
+ //parsec.qrcode.js
 	</script>
 	<script type="text/javascript">
-//ninja.misc.js
+//parsec.misc.js
 	</script>
 	<script type="text/javascript">
-//ninja.translator.js
+//parsec.translator.js
 //cs.js
 //de.js
 //el.js
@@ -579,31 +579,31 @@
 //zh-cn.js
 	</script>
 	<script type="text/javascript">
-//ninja.singlewallet.js
+//parsec.singlewallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.paperwallet.js
+//parsec.paperwallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.bulkwallet.js
+//parsec.bulkwallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.brainwallet.js
+//parsec.brainwallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.vanitywallet.js
+//parsec.vanitywallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.detailwallet.js
+//parsec.detailwallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.splitwallet.js
+//parsec.splitwallet.js
 	</script>
 	<script type="text/javascript">
-//ninja.unittests.js
+//parsec.unittests.js
 	</script>
 	<script type="text/javascript">
-//ninja.onload.js
+//parsec.onload.js
 	</script>
 </body>
 </html>

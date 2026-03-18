@@ -1,5 +1,5 @@
-(function (ninja) {
-	var translator = ninja.translator = {
+(function (parsec) {
+	var translator = parsec.translator = {
 		currentCulture: "en",
 
 		autoDetectTranslation: function () {
@@ -109,8 +109,8 @@
 		},
 
 		showEnglishJson: function () {
-			var english = ninja.translator.translations["en"];
-			var spanish = ninja.translator.translations["es"];
+			var english = parsec.translator.translations["en"];
+			var spanish = parsec.translator.translations["es"];
 			var spanishClone = {};
 			for (var key in spanish) {
 				spanishClone[key] = spanish[key];
@@ -149,4 +149,4 @@
 
 		}
 	};
-})(ninja);
+})(parsec);

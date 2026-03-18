@@ -40,4 +40,4 @@
 			}
 		}
 	};
-})(ninja.wallets, ninja.qrCode);
+})(parsec.wallets, parsec.qrCode);

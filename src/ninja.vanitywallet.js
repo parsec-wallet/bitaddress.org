@@ -1,4 +1,4 @@
-ninja.wallets.vanitywallet = {
+parsec.wallets.vanitywallet = {
     isOpen: function () {
         return (document.getElementById("vanitywallet").className.indexOf("selected") != -1);
     },
@@ -26,66 +26,66 @@ ninja.wallets.vanitywallet = {
 	},
 
 	addKeys: function () {
-		var privateKeyWif = ninja.translator.get("vanityinvalidinputcouldnotcombinekeys");
-		var bitcoinAddress = ninja.translator.get("vanityinvalidinputcouldnotcombinekeys");
-		var publicKeyHex = ninja.translator.get("vanityinvalidinputcouldnotcombinekeys");
+		var privateKeyWif = parsec.translator.get("vanityinvalidinputcouldnotcombinekeys");
+		var bitcoinAddress = parsec.translator.get("vanityinvalidinputcouldnotcombinekeys");
+		var publicKeyHex = parsec.translator.get("vanityinvalidinputcouldnotcombinekeys");
 		try {
 			var input1KeyString = document.getElementById("vanityinput1").value;
 			var input2KeyString = document.getElementById("vanityinput2").value;
 
 			// both inputs are public keys
-			if (ninja.publicKey.isPublicKeyHexFormat(input1KeyString) && ninja.publicKey.isPublicKeyHexFormat(input2KeyString)) {
+			if (parsec.publicKey.isPublicKeyHexFormat(input1KeyString) && parsec.publicKey.isPublicKeyHexFormat(input2KeyString)) {
 				// add both public keys together
 				if (document.getElementById("vanityradioadd").checked) {
-					var pubKeyByteArray = ninja.publicKey.getByteArrayFromAdding(input1KeyString, input2KeyString);
+					var pubKeyByteArray = parsec.publicKey.getByteArrayFromAdding(input1KeyString, input2KeyString);
 					if (pubKeyByteArray == null) {
-						alert(ninja.translator.get("vanityalertinvalidinputpublickeysmatch"));
+						alert(parsec.translator.get("vanityalertinvalidinputpublickeysmatch"));
 					}
 					else {
-						privateKeyWif = ninja.translator.get("vanityprivatekeyonlyavailable");
-						bitcoinAddress = ninja.publicKey.getBitcoinAddressFromByteArray(pubKeyByteArray);
-						publicKeyHex = ninja.publicKey.getHexFromByteArray(pubKeyByteArray);
+						privateKeyWif = parsec.translator.get("vanityprivatekeyonlyavailable");
+						bitcoinAddress = parsec.publicKey.getBitcoinAddressFromByteArray(pubKeyByteArray);
+						publicKeyHex = parsec.publicKey.getHexFromByteArray(pubKeyByteArray);
 					}
 				}
 				else {
-					alert(ninja.translator.get("vanityalertinvalidinputcannotmultiple"));
+					alert(parsec.translator.get("vanityalertinvalidinputcannotmultiple"));
 				}
 			}
 			// one public key and one private key
-			else if ((ninja.publicKey.isPublicKeyHexFormat(input1KeyString) && ninja.privateKey.isPrivateKey(input2KeyString))
-							|| (ninja.publicKey.isPublicKeyHexFormat(input2KeyString) && ninja.privateKey.isPrivateKey(input1KeyString))
+			else if ((parsec.publicKey.isPublicKeyHexFormat(input1KeyString) && parsec.privateKey.isPrivateKey(input2KeyString))
+							|| (parsec.publicKey.isPublicKeyHexFormat(input2KeyString) && parsec.privateKey.isPrivateKey(input1KeyString))
 						) {
-				privateKeyWif = ninja.translator.get("vanityprivatekeyonlyavailable");
-				var pubKeyHex = (ninja.publicKey.isPublicKeyHexFormat(input1KeyString)) ? input1KeyString : input2KeyString;
-				var ecKey = (ninja.privateKey.isPrivateKey(input1KeyString)) ? new Bitcoin.ECKey(input1KeyString) : new Bitcoin.ECKey(input2KeyString);
+				privateKeyWif = parsec.translator.get("vanityprivatekeyonlyavailable");
+				var pubKeyHex = (parsec.publicKey.isPublicKeyHexFormat(input1KeyString)) ? input1KeyString : input2KeyString;
+				var ecKey = (parsec.privateKey.isPrivateKey(input1KeyString)) ? new Bitcoin.ECKey(input1KeyString) : new Bitcoin.ECKey(input2KeyString);
 				// add 
 				if (document.getElementById("vanityradioadd").checked) {
-					var pubKeyCombined = ninja.publicKey.getByteArrayFromAdding(pubKeyHex, ecKey.getPubKeyHex());
+					var pubKeyCombined = parsec.publicKey.getByteArrayFromAdding(pubKeyHex, ecKey.getPubKeyHex());
 				}
 				// multiply
 				else {
-					var pubKeyCombined = ninja.publicKey.getByteArrayFromMultiplying(pubKeyHex, ecKey);
+					var pubKeyCombined = parsec.publicKey.getByteArrayFromMultiplying(pubKeyHex, ecKey);
 				}
 				if (pubKeyCombined == null) {
-					alert(ninja.translator.get("vanityalertinvalidinputpublickeysmatch"));
+					alert(parsec.translator.get("vanityalertinvalidinputpublickeysmatch"));
 				} else {
-					bitcoinAddress = ninja.publicKey.getBitcoinAddressFromByteArray(pubKeyCombined);
-					publicKeyHex = ninja.publicKey.getHexFromByteArray(pubKeyCombined);
+					bitcoinAddress = parsec.publicKey.getBitcoinAddressFromByteArray(pubKeyCombined);
+					publicKeyHex = parsec.publicKey.getHexFromByteArray(pubKeyCombined);
 				}
 			}
 			// both inputs are private keys
-			else if (ninja.privateKey.isPrivateKey(input1KeyString) && ninja.privateKey.isPrivateKey(input2KeyString)) {
+			else if (parsec.privateKey.isPrivateKey(input1KeyString) && parsec.privateKey.isPrivateKey(input2KeyString)) {
 				var combinedPrivateKey;
 				// add both private keys together
 				if (document.getElementById("vanityradioadd").checked) {
-					combinedPrivateKey = ninja.privateKey.getECKeyFromAdding(input1KeyString, input2KeyString);
+					combinedPrivateKey = parsec.privateKey.getECKeyFromAdding(input1KeyString, input2KeyString);
 				}
 				// multiply both private keys together
 				else {
-					combinedPrivateKey = ninja.privateKey.getECKeyFromMultiplying(input1KeyString, input2KeyString);
+					combinedPrivateKey = parsec.privateKey.getECKeyFromMultiplying(input1KeyString, input2KeyString);
 				}
 				if (combinedPrivateKey == null) {
-					alert(ninja.translator.get("vanityalertinvalidinputprivatekeysmatch"));
+					alert(parsec.translator.get("vanityalertinvalidinputprivatekeysmatch"));
 				}
 				else {
 					bitcoinAddress = combinedPrivateKey.getBitcoinAddress();

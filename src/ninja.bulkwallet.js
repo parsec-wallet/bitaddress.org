@@ -111,4 +111,4 @@
 			bulk.encrypt = element.checked;
 		}
 	};
-})(ninja.wallets, ninja.translator, ninja.privateKey);
+})(parsec.wallets, parsec.translator, parsec.privateKey);

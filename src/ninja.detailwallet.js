@@ -273,4 +273,4 @@
 			}
 		}
 	};
-})(ninja.wallets, ninja.qrCode, ninja.privateKey, ninja.translator);
+})(parsec.wallets, parsec.qrCode, parsec.privateKey, parsec.translator);

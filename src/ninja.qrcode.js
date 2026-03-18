@@ -1,5 +1,5 @@
-(function (ninja) {
-	var qrC = ninja.qrCode = {
+(function (parsec) {
+	var qrC = parsec.qrCode = {
 		getTypeNumber: function (text) {
 			var lengthCalculation = text.length * 8 + 12;
 			if (lengthCalculation < 72) { return 1; }
@@ -96,4 +96,4 @@
 			}
 		}
 	};
-})(ninja);
+})(parsec);

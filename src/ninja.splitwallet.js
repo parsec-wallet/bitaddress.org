@@ -1,4 +1,4 @@
-ninja.wallets.splitwallet = {
+parsec.wallets.splitwallet = {
     isOpen: function () {
         return (document.getElementById("splitwallet").className.indexOf("selected") != -1);
     },
@@ -50,7 +50,7 @@ ninja.wallets.splitwallet = {
 			var threshold = parseInt(document.getElementById('splitthreshold').value);
 			var key = new Bitcoin.ECKey(false);
 			var bitcoinAddress = key.getBitcoinAddress();
-			var shares = ninja.wallets.splitwallet.getFormattedShares(key.getBitcoinHexFormat(), numshares, threshold);
+			var shares = parsec.wallets.splitwallet.getFormattedShares(key.getBitcoinHexFormat(), numshares, threshold);
 
 			var output = document.createElement("div");
 			output.setAttribute("id", "splitoutput");
@@ -65,7 +65,7 @@ ninja.wallets.splitwallet = {
 			}
 
 			document.getElementById("splitstep1area").innerHTML = output.innerHTML;
-			ninja.qrCode.showQrCode(m);
+			parsec.qrCode.showQrCode(m);
 
 			document.getElementById("splitstep1area").style.display = "block";
 			document.getElementById("splitstep1icon").setAttribute("class", "less");
@@ -81,7 +81,7 @@ ninja.wallets.splitwallet = {
 		try {
 			document.getElementById("combinedprivatekey").innerHTML = "";
 			var shares = document.getElementById("combineinput").value.trim().split(/\W+/);
-			var combinedBytes = ninja.wallets.splitwallet.combineFormattedShares(shares);
+			var combinedBytes = parsec.wallets.splitwallet.combineFormattedShares(shares);
 			var privkeyBase58 = new Bitcoin.ECKey(combinedBytes).getBitcoinWalletImportFormat();
 			document.getElementById("combinedprivatekey").innerHTML = privkeyBase58;
 		}
@@ -92,14 +92,14 @@ ninja.wallets.splitwallet = {
 
 	// generate shares and format them in base58
 	getFormattedShares: function (key, numshares, threshold) {
-		var shares = secrets.share(key, numshares, threshold).map(ninja.wallets.splitwallet.hexToBytes).map(Bitcoin.Base58.encode);
+		var shares = secrets.share(key, numshares, threshold).map(parsec.wallets.splitwallet.hexToBytes).map(Bitcoin.Base58.encode);
 		return shares;
 	},
 
 	// combine base58 formatted shares and return a bitcoin byte array
 	combineFormattedShares: function (shares) {
-		var combined = secrets.combine(shares.map(Bitcoin.Base58.decode).map(Crypto.util.bytesToHex).map(ninja.wallets.splitwallet.stripLeadZeros));
-		return ninja.wallets.splitwallet.hexToBytes(combined);
+		var combined = secrets.combine(shares.map(Bitcoin.Base58.decode).map(Crypto.util.bytesToHex).map(parsec.wallets.splitwallet.stripLeadZeros));
+		return parsec.wallets.splitwallet.hexToBytes(combined);
 	},
 
 	openCloseStep: function (num) {

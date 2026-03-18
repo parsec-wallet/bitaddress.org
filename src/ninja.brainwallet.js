@@ -1,4 +1,4 @@
-ninja.wallets.brainwallet = {
+parsec.wallets.brainwallet = {
     isOpen: function () {
         return (document.getElementById("brainwallet").className.indexOf("selected") != -1);
     },
@@ -6,7 +6,7 @@ ninja.wallets.brainwallet = {
 	open: function () {
 		document.getElementById("brainarea").style.display = "block";
 		document.getElementById("brainpassphrase").focus();
-		document.getElementById("brainwarning").innerHTML = ninja.translator.get("brainalertpassphrasewarning");
+		document.getElementById("brainwarning").innerHTML = parsec.translator.get("brainalertpassphrasewarning");
 	},
 
 	close: function () {
@@ -23,7 +23,7 @@ ninja.wallets.brainwallet = {
 
 		if (key == keyConfirm || document.getElementById("brainpassphraseshow").checked) {
 			// enforce a minimum passphrase length
-			if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
+			if (key.length >= parsec.wallets.brainwallet.minPassphraseLength) {
 				var bytes = Crypto.SHA256(key, { asBytes: true });
 				var btcKey = new Bitcoin.ECKey(bytes);
 				var isCompressed = document.getElementById("braincompressed").checked;
@@ -32,20 +32,20 @@ ninja.wallets.brainwallet = {
 				var privWif = btcKey.getBitcoinWalletImportFormat();
 				document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
 				document.getElementById("brainbtcprivwif").innerHTML = privWif;
-				ninja.qrCode.showQrCode({
+				parsec.qrCode.showQrCode({
 					"brainqrcodepublic": bitcoinAddress,
 					"brainqrcodeprivate": privWif
 				});
 				document.getElementById("brainkeyarea").style.visibility = "visible";
 			}
 			else {
-				alert(ninja.translator.get("brainalertpassphrasetooshort") + ninja.translator.get("brainalertpassphrasewarning"));
-				ninja.wallets.brainwallet.clear();
+				alert(parsec.translator.get("brainalertpassphrasetooshort") + parsec.translator.get("brainalertpassphrasewarning"));
+				parsec.wallets.brainwallet.clear();
 			}
 		}
 		else {
-			alert(ninja.translator.get("brainalertpassphrasedoesnotmatch"));
-			ninja.wallets.brainwallet.clear();
+			alert(parsec.translator.get("brainalertpassphrasedoesnotmatch"));
+			parsec.wallets.brainwallet.clear();
 		}
 	},
 
